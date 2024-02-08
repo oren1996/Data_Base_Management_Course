@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<a href="{% url 'index' %}">Home</a>
+        <br>
+        <a href="{% url 'Query_results' %}">Query Results</a>
+        <br>
+        <a href="{% url 'Records_management' %}">Records Management</a>
+        <br>
+        <a href="{% url 'Rankings' %}">Rankings</a>
+        <br>
+        <br>
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Records Management</title>
+</head>
+<body style="background-color: bisque">
+<h1 style="text-align: center">
+   Records Management
+</h1>
+
+
+
+<h2>
+    Order Title
+</h2>
+
+<form method="post">
+    {% csrf_token %}
+    hID:<input type="number" name="hID_order" required> <br>
+    title:<input type="text" name="title_order" required> <br>
+    <input type="submit">
+</form>
+<p>
+    {% if error %}
+    {{error}}
+
+    {% else %}
+    {{success}}
+
+    {% endif %}
+</p>
+
+
+
+<h2>
+    Return Title
+</h2>
+
+<form method="post">
+    {% csrf_token %}
+    hID:<input type="number" name="hID_return" required> <br>
+    title:<input type="text" name="title_return" required> <br>
+    <input type="submit">
+</form>
+
+<p>
+    {% if error_return %}
+    {{error_return}}
+
+    {% else %}
+    {{success_return}}
+
+    {% endif %}
+</p>
+
+<br>
+<table border="1" style="width: 70%">
+
+        <th>hID</th>
+        <th>total orders</th>
+
+        {% for content in table %}
+            <tr>
+                <td>{{ content.hID}}</td>
+                <td>{{ content.count }}</td>
+            </tr>
+        {% endfor %}
+
+</table>
+
+</body>
+</html>

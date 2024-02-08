@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rankings</title>
+</head>
+<body style="background-color: bisque">
+
+<a href="{% url 'index' %}">Home</a>
+        <br>
+        <a href="{% url 'Query_results' %}">Query Results</a>
+        <br>
+        <a href="{% url 'Records_management' %}">Records Management</a>
+        <br>
+        <a href="{% url 'Rankings' %}">Rankings</a>
+        <br>
+<h1 style="text-align: center">
+    Rankings
+</h1>
+<br>
+
+<h2> Rank A Title</h2>
+<form method="post">
+    {% csrf_token %}
+    hID:<select name="hID_selected" size="1" required>
+                <option selected disabled hidden> </option>
+                {% for content in allhID %}
+                        <option> {{ content.hID }} </option>
+                {% endfor %}
+        </select>
+    <br>
+
+    title:<select name="title_selected" size="1" required>
+                    <option selected disabled hidden> </option>
+                    {% for content in allTitle %}
+                            <option> {{ content.title }} </option>
+                    {% endfor %}
+            </select>
+    <br>
+
+    ranking:<select name="rank_selected" size="1" required>
+    <option selected disabled hidden> </option>
+                <option> 1 </option>
+                <option> 2 </option>
+                <option> 3 </option>
+                <option> 4 </option>
+                <option> 5 </option>
+            </select> <br>
+    <input type="submit">
+</form>
+
+<br>
+<br>
+
+<h2> Top 5 Spoken Title of a given Genre </h2>
+<form method="post">
+    {% csrf_token %}
+    genre:<select name="genre_selected" size="1" required>
+                <option selected disabled hidden> </option>
+                {% for content in genre %}
+                        <option> {{ content.genre }} </option>
+                {% endfor %}
+            </select> <br>
+    min_rank: <input type="number" name="min_rank" required> <br>
+    <input type="submit">
+</form>
+
+
+{% if not flag %}
+    <table border="1" style="width: 70%">
+
+            <th>title</th>
+            <th>average rank</th>
+
+            {% for content in spoken_shows %}
+                <tr>
+                    <td>{{ content.title}}</td>
+                    <td>{{ content.Average }}</td>
+                </tr>
+            {% endfor %}
+    </table>
+{% endif %}
+
+
+
+</body>
+</html>
